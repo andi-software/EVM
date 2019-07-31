@@ -27,7 +27,6 @@
 #include"includes/usl.bgt"
 #include"includes/virtualizer.bgt"
 #include"includes/wine.bgt"
-
 const double gversion=minversion;
 const string ver=version;
 const int serverport=port;
