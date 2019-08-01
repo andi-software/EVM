@@ -1711,6 +1711,8 @@ weaponcheckloop();
 secundario();
 if(gmt()!=""&&jumping==0&&pulou==1&&falling==false) pulou=0;
 }
+
+// Builder menu, please use caution when using it
 if(key_pressed(KEY_F9) && desenvolvedordm==1)
 {
 int slot=-1;
@@ -1766,12 +1768,19 @@ send_reliable(peer_id, "/rawdata "+mapcode, 1);
 }
 if(m.get_item_name(mres)=="undo")
 {
+int confirm =question(pu.get_value("Deshacer"), pu.get_value("¿Seguro que quiere deshacer la última creación? esto eliminará la última línea insertada. Esta acción no se puede revertir."));
+if(confirm==1)
+{
 string[] data=map2;
 data.remove_at(data.length()-1);
 data.remove_at(data.length()-1);
 data.remove_at(data.length()-1);
 send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
+else
+mainloop();
+}
+
 else if(m.get_item_name(mres)=="platform")
 {
 string s1=v.input(pu.get_value("Comienzo de la coordenada x:"));
@@ -1799,6 +1808,20 @@ if(key_pressed(KEY_ESCAPE))
 {
 s4="";
 break;
+}
+if(key_pressed(KEY_HOME) && selected>0)
+{
+selected=0;
+p.destroy_sound(slot);
+speak(platforms[selected]);
+slot=p.play_stationary(platforms[selected], false);
+}
+if(key_pressed(KEY_END) && selected<platforms.length()-1)
+{
+selected=platforms.length()-1;
+p.destroy_sound(slot);
+speak(platforms[selected]);
+slot=p.play_stationary(list[selected], false);
 }
 if(key_pressed(KEY_UP) && selected>0)
 {
@@ -1879,9 +1902,25 @@ speak(pu.get_value("Elija un sonido de apertura para la puerta:"));
 while(true)
 {
 wait(5);
+mainloop();
 if(key_pressed(KEY_ESCAPE))
 {
 s8="";
+break;
+}
+if(key_pressed(KEY_HOME) && selected>0)
+{
+selected=0;
+p.destroy_sound(slot);
+speak(sound_doors[selected]);
+slot=p.play_stationary(sound_doors[selected], false);
+}
+if(key_pressed(KEY_END) && selected<sound_doors.length()-1)
+{
+selected=sound_doors.length()-1;
+p.destroy_sound(slot);
+speak(sound_doors[selected]);
+slot=p.play_stationary(list[selected], false);
 }
 if(key_pressed(KEY_UP) && selected>0)
 {
@@ -1919,9 +1958,25 @@ speak(pu.get_value("Elija un sonido de cierre para la puerta:"));
 while(true)
 {
 wait(5);
+mainloop();
 if(key_pressed(KEY_ESCAPE))
 {
-s9 ="";
+s9="";
+break;
+}
+if(key_pressed(KEY_HOME) && selected>0)
+{
+selected=0;
+p.destroy_sound(slot);
+speak(sound_doors[selected]);
+slot=p.play_stationary(sound_doors[selected], false);
+}
+if(key_pressed(KEY_END) && selected<sound_doors.length()-1)
+{
+selected=sound_doors.length()-1;
+p.destroy_sound(slot);
+speak(sound_doors[selected]);
+slot=p.play_stationary(list[selected], false);
 }
 if(key_pressed(KEY_UP) && selected>0)
 {
@@ -2030,10 +2085,25 @@ speak(pu.get_value("Elija un sonido para el piso de la escalera:"));
 while(true)
 {
 wait(5);
+mainloop();
 if(key_pressed(KEY_ESCAPE))
 {
 s5="";
 break;
+}
+if(key_pressed(KEY_HOME) && selected>0)
+{
+selected=0;
+p.destroy_sound(slot);
+speak(platforms[selected]);
+slot=p.play_stationary(platforms[selected], false);
+}
+if(key_pressed(KEY_END) && selected<platforms.length()-1)
+{
+selected=platforms.length()-1;
+p.destroy_sound(slot);
+speak(platforms[selected]);
+slot=p.play_stationary(list[selected], false);
 }
 if(key_pressed(KEY_UP) && selected>0)
 {
@@ -2092,6 +2162,20 @@ if(key_pressed(KEY_ESCAPE))
 {
 s5="";
 break;
+}
+if(key_pressed(KEY_HOME) && selected>0)
+{
+selected=0;
+p.destroy_sound(slot);
+speak(list[selected]);
+slot=p.play_stationary(list[selected], false);
+}
+if(key_pressed(KEY_END) && selected<list.length()-1)
+{
+selected=list.length()-1;
+p.destroy_sound(slot);
+speak(list[selected]);
+slot=p.play_stationary(list[selected], false);
 }
 if(key_pressed(KEY_UP) && selected>0)
 {
@@ -2206,7 +2290,7 @@ else
 mainloop();
 }
 }
-// Map builder end
+// Builder end
 
 if(key_down(KEY_RSHIFT)&&key_pressed(KEY_W)&&!key_down(KEY_F)||key_down(KEY_LSHIFT)&&key_pressed(KEY_W)&&!key_down(KEY_F))send_reliable(peer_id, "nv", 0);
 if(key_pressed(KEY_M) and moveable==true)send_reliable(peer_id, "r", 0);
