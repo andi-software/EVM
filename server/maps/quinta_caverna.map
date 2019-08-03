@@ -22,5 +22,4 @@ wall:90:0:3:wallbarricada
 teto:none
 desativar:bicicleta
 desativar:camera
-desativar:coordenadas
-pwall:97:0:50:wallnone
+desativar:coordenadas
