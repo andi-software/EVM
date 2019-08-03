@@ -1,5 +1,5 @@
-minuto=6
-hora=13
+minuto=4
+hora=17
 day=1
 month=1
 year=1970
@@ -17,7 +17,6 @@ andar7=0
 andar8=0
 andar9=0
 andar10=0
-
 andar11=0
 andar12=0
 andar13=0
@@ -58,3 +57,4 @@ andar47=0
 andar48=0
 andar49=0
 andar50=0
+port=9000

@@ -3698,10 +3698,13 @@ void game(){
 		}
 	}
 }
+
+
 void chat_administrativo(){
 	string msg=v.input(pu.get_value("Digite sua mensagem."));
 	if(msg!="")send_reliable(peer_id, "adm "+msg, 0);
 }
+
 void reset(){
 	stream.stop(streamurl);
 	ausente=false;
